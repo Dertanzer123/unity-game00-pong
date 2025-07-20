@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ballmovement : MonoBehaviour
+public  class ballmovement : MonoBehaviour
 {
     public GameObject ball;
     public GameObject paddleLeft;
@@ -13,8 +13,8 @@ public class ballmovement : MonoBehaviour
     
     public float ballradius;
     
-    public float ballspeed;
-    public Vector3 ballvelocity;
+    public static float ballspeed = 3f;
+    public static Vector3 ballvelocity;
     
     public float upboundary;
     public float downboundary;
@@ -31,9 +31,15 @@ public class ballmovement : MonoBehaviour
     
     void Update()
     {
-        
-        ball.transform.position += ballvelocity*Time.deltaTime;
-        
+        if (ballvelocity.magnitude > 0.00001f)
+        {
+
+
+            ballvelocity -= ballvelocity * (ballvelocity.magnitude - ballspeed) / ballvelocity.magnitude *
+                Time.deltaTime / 3;
+            ball.transform.position += ballvelocity * Time.deltaTime;
+        }
+
         if (ball.transform.position.y+ballradius > upboundary)
         {
             ball.transform.position = new Vector3(ball.transform.position.x, upboundary-ballradius, ball.transform.position.z);
