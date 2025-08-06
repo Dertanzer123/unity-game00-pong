@@ -18,12 +18,20 @@ public  class ballmovement : MonoBehaviour
     
     public float upboundary;
     public float downboundary;
+    
+    public Vector3 startlocation;
 
+
+    public void newgame()
+    {
+        ball.transform.position = startlocation;
+        ballvelocity = new Vector3(Random.Range(-100,100), Random.Range(-100,100), 0);
+        ballvelocity.Normalize();
+        ballvelocity *= ballspeed;
+    }
     void Start()
     {
-     ballvelocity = new Vector3(Random.Range(-100,100), Random.Range(-100,100), 0);
-     ballvelocity.Normalize();
-     ballvelocity *= ballspeed;
+        newgame();
      
         
         
